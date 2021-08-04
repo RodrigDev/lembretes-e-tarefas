@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">Reminders and Tasks</string>
+    <string name="app_name">Lembretes e tarefas</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="lista_vazia">Sua lista está vazia</string>
+    <string name="lista_vazia_2">Clique no botão abaixo para adicionar.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="titulo">Título</string>
+    <string name="descricao">Descrição</string>
+    <string name="data">Data</string>
+    <string name="hora">Hora</string>
+    <string name="cancelar">Cancelar</string>
+
+    <string name="fragment_add_fab_cd">Add Task</string>
+
+    <string name="custom_tv_title_text_task">Titulo da tarefa</string>
+    <string name="custom_tv_description_text_task">Descrição da tarefa</string>
+    <string name="custom_iv_cd_task">Details</string>
+
+    <string name="empty_state_iv_cd">Empty State</string>
+    <string name="empty_state_title_text">Lista vazia</string>
+    <string name="empty_state_descripton_text">Clique no ícone \'+\' para adicionar</string>
 </resources>
