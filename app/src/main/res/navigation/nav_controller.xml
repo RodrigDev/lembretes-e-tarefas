@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.rodrigo.remindersandtasks.ui.fragments.list.ListFragment"
-        android:label="fragment_list"
+        android:label="Lembretes e tarefas"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_addFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.rodrigo.remindersandtasks.ui.fragments.add.AddFragment"
-        android:label="fragment_add"
+        android:label="Adicionar"
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_addFragment_to_listFragment"
@@ -29,10 +29,13 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.rodrigo.remindersandtasks.ui.fragments.update.UpdateFragment"
-        android:label="fragment_update"
+        android:label="Atualizar"
         tools:layout="@layout/fragment_update" >
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="currentTask"
+            app:argType="com.rodrigo.remindersandtasks.data.model.Task" />
     </fragment>
 </navigation>

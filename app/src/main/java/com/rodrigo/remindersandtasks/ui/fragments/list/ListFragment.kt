@@ -1,60 +1,100 @@
 package com.rodrigo.remindersandtasks.ui.fragments.list
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.rodrigo.remindersandtasks.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.rodrigo.remindersandtasks.ui.main.TaskViewModel
+import kotlinx.android.synthetic.main.empty_state.view.*
+import kotlinx.android.synthetic.main.fragment_list.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ListFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var mTaskViewModel: TaskViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+
+        val adapter = ListAdapter()
+        val recyclerView = view.rv
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = StaggeredGridLayoutManager(
+            2,
+            StaggeredGridLayoutManager.VERTICAL
+        )
+
+        mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+        mTaskViewModel.readAllData.observe(viewLifecycleOwner, { task ->
+            adapter.setData(task)
+            if (task.isNotEmpty()){
+                view.rv.visibility = View.VISIBLE
+                view.include_empty_state.visibility = View.GONE
+            } else if (task.isEmpty()){
+                view.include_empty_state.visibility = View.VISIBLE
+            }
+        })
+
+        listeners(view)
+        setHasOptionsMenu(true)
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun listeners(view: View) {
+
+        val toollbar = view.findViewById<Toolbar>(R.id.toolbar_list)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toollbar)
+        toollbar.setTitle("Lembretes e tarefas")
+
+        view.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_delete_item -> {
+                deleteAll()
             }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAll() {
+        val alertDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.list_dialog_title))
+            .setMessage(getString(R.string.list_dialog_message))
+
+        alertDialog.setNeutralButton(getString(R.string.list_dialog_neutral)) { _, _ -> }
+
+        alertDialog.setNegativeButton(getString(R.string.list_dialog_negative)) { _, _ -> }
+
+        alertDialog.setPositiveButton(getString(R.string.list_dialog_positive)) { _, _ ->
+            mTaskViewModel.deleteAll()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.list_toast_delete),
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+
+        alertDialog.show()
     }
 }

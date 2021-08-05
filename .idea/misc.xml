@@ -3,13 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/drawable/gradient_background.xml" value="0.9642857142857143" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/drawable/ic_undraw_add_notes_re_ln36.xml" value="0.25833333333333336" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/custom_row.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/empty_state.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/fragment_add.xml" value="0.2" />
+        <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/fragment_add.xml" value="0.264" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/fragment_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/layout/fragment_update.xml" value="0.264" />
+        <entry key="..\:/Users/User/Desktop/RemindersandTasks/app/src/main/res/menu/delete_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
